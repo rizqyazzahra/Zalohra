@@ -52,11 +52,11 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 
 #### Membuat aplikasi dengan nama `main` pada proyek tersebut.
-1. Di direktori utama Zalora, membuat aplikasi baru bernama 'main' menggunakan perintah:
+1. Di direktori utama Zalora, membuat aplikasi baru bernama `main` menggunakan perintah:
    ```
    python manage.py startapp main
    ```
-2. Mendaftarkan aplikasi 'main' ke variabel INSTALLED_APPS yang ada di dalam berkas `settings.py`
+2. Mendaftarkan aplikasi `main` ke variabel INSTALLED_APPS yang ada di dalam berkas `settings.py`
 
 
 #### Membuat model pada aplikasi `main` dengan nama `Product` dan memiliki atribut wajib (name, price, description)
@@ -80,8 +80,8 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 
 ####  Membuat sebuah fungsi pada `views.py`
-1. Membuat direktori baru bernama 'template' di dalam direktori aplikasi 'main'
-2. Membuat berkas baru bernama 'main.html' dan menambahkan data-data seperti nama aplikasi, nama, dan kelas
+1. Membuat direktori baru bernama `template` di dalam direktori aplikasi `main`
+2. Membuat berkas baru bernama `main.html` dan menambahkan data-data seperti nama aplikasi, nama, dan kelas
 3. Menambahkan fungsi `show_main` pada berkas `views.py` yang berisi dictionary yang berisi data (nama aplikasi, nama, dan kelas) untuk dikirimkan ke tampilan
 
 
