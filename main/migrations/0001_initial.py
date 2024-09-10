@@ -12,13 +12,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='MoodEntry',
+            name='Product',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mood', models.CharField(max_length=255)),
-                ('time', models.DateField(auto_now_add=True)),
-                ('feelings', models.TextField()),
-                ('mood_intensity', models.IntegerField()),
+                ('name', models.CharField(max_length=255)),
+                ('price', models.IntegerField()),
+                ('description', models.TextField()),
             ],
         ),
     ]
