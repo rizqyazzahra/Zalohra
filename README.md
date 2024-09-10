@@ -8,7 +8,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 ## Tugas 2: Implementasi Model-View-Template (MVT) pada Django
 ### 1. Langkah Implementasi
 #### Membuat sebuah proyek Django baru.
-1. Membuat direktori lokal bernama “Zalohra” lalu masuk ke dalam direktori tersebut
+1. Membuat direktori lokal bernama 'Zalohra' lalu masuk ke dalam direktori tersebut
 2. Membuka _command prompt_ dan membuat _virtual environment_ dengan menjalankan perintah:
    ```
    py -m venv env
@@ -34,13 +34,13 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    ```
    django-admin startproject Zalohra .
    ```
-7. Menambahkan string pada ALLOWED_HOST di settings.py untuk keperluan _deployment_:
+7. Menambahkan string pada ALLOWED_HOST di `settings.py` untuk keperluan _deployment_:
    ```
    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
    ```
 8. Membuat repositori baru di GitHub dengan nama 'Zalohra'
 9. Menambahkan berkas `.gitignore`
-10. Membuat _branch_ utama baru dengan nama "main" menggunakan perintah:
+10. Membuat _branch_ utama baru dengan nama `main` menggunakan perintah:
     ```
     git branch -M main
     ```
