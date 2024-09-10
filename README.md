@@ -110,7 +110,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 #### Melakukan _deployment_ ke PWS
 1. Mengakses _website_ PWS dan membuat proyek baru bernama 'Zalohra'
-2. Menambahkan URL _deployment_ PWS pada variabel ALLOWED_HOSTS yang ada di dalam berkas `settings.py` di proyek 'Zahlora'
+2. Menambahkan URL _deployment_ PWS pada variabel ALLOWED_HOSTS yang ada di dalam berkas `settings.py` di proyek 'Zalohra'
 3. Melakukan _add_, _commit_, dan _push_ lokal ke repositori GitHub
 4. Menjalankan perintah pada _Project Command_ di halaman PWS
 5. Menjalankan perintah ``` git branch -M main ``` untuk kembali mengubah nama _branch_ utama menjadi `main`
@@ -118,8 +118,16 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 ### 2. Bagan Request Client ke Web Aplikasi Berbasis Django Beserta Responnya
 
+
 ### 3. Fungsi Git dalam Pengembangan Perangkat Lunak
+* Git memungkinkan _developer_ perangkat lunak untuk melacak setiap perubahan yang dilakukan pada kode proyek dan memulihkan versi kode sebelumnya jika diperlukan
+* Git memfasilitasi agar dapat melakukan kolaborasi pengembangan proyek yang sama dengan banyak orang melalui kemampuan untuk mengelola _branch_ yang berbeda dan menggabungkan perubahan (_merge_) dengan aman kembali ke _branch_ utama dengan aman.
+* Git yang memiliki sistem terdistribusi memungkinkan _developer_ untuk memiliki salinan lengkap dari seluruh riwayat proyek. Hal ini memungkinkan pekerjaan tanpa terhubung ke server pusat.
+ 
 
 ### 4. Mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+Django seringkali dijadikan permulaan dalam pembelajaran pengembangan perangkat lunak karena memiliki struktur yang terorganisir dan mudah dipahami oleh pemula, yaitu arsitektur Model-View-Template (MVT) yang memisahkan logika aplikasi, interaksi database, dan antarmuka pengguna. Tak hanya itu, Django juga menyediakan banyak fitur bawaan yang dapat memudahkan dalam pengembangan perangkat lunak dengan cepat. Keamanan yang dirancang dengan baik dan fitur yang banyak dan beragam memudahkan pemula untuk belajar sambil membangun aplikasi yang aman.
+
 
 ### 5. Mengapa model pada Django disebut sebagai ORM?
+Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menyediakan cara untuk berinteraksi dengan basis data menggunakan objek Python daripada menulis _query_ SQL secara langsung. ORM memungkinkan pengembang untuk mendefinisikan struktur basis data dalam bentuk Python, di mana setiap kelas mewakili tabel dan atributnya mewakili kolom. Hal ini membuat interaksi dengan basis data jadi lebih mudah.
