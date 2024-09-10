@@ -116,7 +116,9 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 5. Menjalankan perintah ``` git branch -M main ``` untuk kembali mengubah nama _branch_ utama menjadi `main`
 6. Lihat status _deployment_
 
+
 ### 2. Bagan Request Client ke Web Aplikasi Berbasis Django Beserta Responnya
+Client (browser) akan mengirimkan request ke server. Lalu, server menerima request dan memprosesnya melalui web server. Permintaan diarahkan ke urls.py yang tugasnya memetakan URL dari request ke fungsi yang sesuai di views.py. Di views.py, request ditangani dan jika diperlukan akan berinteraksi dengan models.py untuk mengambil atau menyimpan data ke basis data. Jika diperlukan, view akan menggunakan template HTML yang akan dikirimkan kembali ke client. Setelah data diproses dan template di-render, view akan menghasilkan respons. Respons ini akan ditampilkan oleh browser.
 
 
 ### 3. Fungsi Git dalam Pengembangan Perangkat Lunak
