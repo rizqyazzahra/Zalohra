@@ -30,7 +30,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    ```
    pip install -r requirements.txt
    ```
- 6. Membuat proyek Django bernama 'Zalohra' dengan perintah:
+6. Membuat proyek Django bernama 'Zalohra' dengan perintah:
    ```
    django-admin startproject Zalohra .
    ```
@@ -41,11 +41,11 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 8. Membuat repositori baru di GitHub dengan nama 'Zalohra'
 9. Menambahkan berkas .gitignore
 10. Membuat _branch_ utama baru dengan nama "main" menggunakan perintah:
-   ```
-   git branch -M main
-   ```
+    ```
+    git branch -M main
+    ```
 11. Menghubungkan direktori lokal dengan repositori di GitHub menggunakan perintah:
-   ```
-   git remote add origin https://github.com/rizqyazzahra/Zalohra.git
-   ```
+    ```
+    git remote add origin https://github.com/rizqyazzahra/Zalohra.git
+    ```
 12. Melakukan _add_, _commit_, dan _push_ dari direktori lokal ke repositori GitHub
