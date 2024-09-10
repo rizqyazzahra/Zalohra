@@ -50,6 +50,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
     ```
 12. Melakukan _add_, _commit_, dan _push_ dari direktori lokal ke repositori GitHub
 
+
 #### Membuat aplikasi dengan nama `main` pada proyek tersebut.
 1. Di direktori utama Zalora, membuat aplikasi baru bernama 'main' menggunakan perintah:
    ```
@@ -57,18 +58,6 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    ```
 2. Mendaftarkan aplikasi 'main' ke variabel INSTALLED_APPS yang ada di dalam berkas `settings.py`
 
-#### Melakukan routing pada proyek agar dapat menjalankan aplikasi `main`
-1. Membuat berkas `urls.py` di dalam direktori main dan mengisi dengan:
-   ```
-   from django.urls import path
-   from main.views import show_main
-
-   app_name = 'main'
-   
-   urlpatterns = [
-       path('', show_main, name='show_main'),
-   ]
-   ```
 
 #### Membuat model pada aplikasi `main` dengan nama `Product` dan memiliki atribut wajib (name, price, description)
 1. Mengisi berkas `models.py` pada direktori aplikasi main dengan kode:
@@ -89,5 +78,40 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    python manage.py migrate
    ```
 
+
 ####  Membuat sebuah fungsi pada `views.py`
-1. 
+1. Membuat direktori baru bernama 'template' di dalam direktori aplikasi 'main'
+2. Membuat berkas baru bernama 'main.html' dan menambahkan data-data seperti nama aplikasi, nama, dan kelas
+3. Menambahkan fungsi `show_main` pada berkas `views.py` yang berisi dictionary yang berisi data (nama aplikasi, nama, dan kelas) untuk dikirimkan ke tampilan
+
+
+#### Membuat sebuah routing pada `urls.py` aplikasi `main` untuk memetakan fungsi yang telah dibuat pada `views.py`
+1. Membuat berkas `urls.py` di dalam direktori `main` dan mengisi dengan:
+   ```
+   from django.urls import path
+   from main.views import show_main
+
+   app_name = 'main'
+   
+   urlpatterns = [
+       path('', show_main, name='show_main'),
+   ]
+   ```
+2. Membuka berkas `urls.py` di dalam direktori proyek `Zalohra` dan mengisi dengan:
+   ```
+   from django.contrib import admin
+   from django.urls import path, include
+   
+   urlpatterns = [
+       path('admin/', admin.site.urls),
+       path('', include('main.urls')),
+   ]
+   ```
+
+#### Melakukan _deployment_ ke PWS
+1. Mengakses _website_ PWS dan membuat proyek baru bernama 'Zalohra'
+2. Menambahkan URL _deployment_ PWS pada variabel ALLOWED_HOSTS yang ada di dalam berkas `settings.py` di proyek 'Zahlora'
+3. Melakukan _add_, _commit_, dan _push_ lokal ke repositori GitHub
+4. Menjalankan perintah pada _Project Command_ di halaman PWS
+5. Menjalankan perintah ``` git branch -M main ``` untuk kembali mengubah nama _branch_ utama menjadi `main`
+6. Lihat status _deployment_
