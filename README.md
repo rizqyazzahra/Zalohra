@@ -115,3 +115,11 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 4. Menjalankan perintah pada _Project Command_ di halaman PWS
 5. Menjalankan perintah ``` git branch -M main ``` untuk kembali mengubah nama _branch_ utama menjadi `main`
 6. Lihat status _deployment_
+
+### 2. Bagan Request Client ke Web Aplikasi Berbasis Django Beserta Responnya
+
+### 3. Fungsi Git dalam Pengembangan Perangkat Lunak
+
+### 4. Mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+
+### 5. Mengapa model pada Django disebut sebagai ORM?
