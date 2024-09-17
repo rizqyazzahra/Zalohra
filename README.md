@@ -296,3 +296,14 @@ urlpatterns = [
 
 
 ### 💻 Hasil Akses URL pada Postman
+#### XML
+![Screenshot (1336)](https://github.com/user-attachments/assets/07bf2145-1c7d-486c-b4d5-c4979d900dc3)
+
+#### JSON
+![Screenshot (1337)](https://github.com/user-attachments/assets/1e5c4157-bd9f-49f7-bf2e-aa658d1400eb)
+
+#### XML by ID
+![Screenshot (1339)](https://github.com/user-attachments/assets/e4164752-2c46-45d6-a6bc-f8286b0a79a2)
+
+#### JSON by ID
+![Screenshot (1340)](https://github.com/user-attachments/assets/817bb3c5-8231-41de-a1ae-3b5fcf5a45fd)
