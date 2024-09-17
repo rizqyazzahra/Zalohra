@@ -137,15 +137,100 @@ Django seringkali dijadikan permulaan dalam pembelajaran pengembangan perangkat 
 Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menyediakan cara untuk berinteraksi dengan basis data menggunakan objek Python daripada menulis _query_ SQL secara langsung. ORM memungkinkan pengembang untuk mendefinisikan struktur basis data dalam bentuk Python, di mana setiap kelas mewakili tabel dan atributnya mewakili kolom. Hal ini membuat interaksi dengan basis data jadi lebih mudah.
 
 
+---
 ## Tugas 3: Implementasi Form dan Data Delivery pada Django
-### 1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+### 1. Jelaskan mengapa kita memerlukan _data delivery_ dalam pengimplementasian sebuah platform?
 
 ### 2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
 
-### 3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+### 3. Jelaskan fungsi dari method `is_valid()` pada form Django dan mengapa kita membutuhkan method tersebut?
 
-### 4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+### 4. Mengapa kita membutuhkan `csrf_token` saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan `csrf_token` pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
 
-### 5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+#### Membuat input `form`
+1. Membuat `forms.py` di direktori `main` dengan isi
+   ```
+   from django.forms import ModelForm
+   from main.models import Product
+
+   class ProductForm(ModelForm):
+       class Meta:
+           model = Product
+           fields = ["name", "price", "description", "image"]
+   ```
+2. Menambahkan beberapa _import_ pada berkas `views.py` di direktori `main`
+   ```
+   from django.shortcuts import render, redirect   # Menambahkan import redirect
+   from main.forms import ProductForm
+   from main.models import Product
+   ```
+3. Menambahkan method `create_product` untuk menambah entri database di file `views.py` di direktori `main`
+   ```
+   def create_product(request):
+      form = ProductForm(request.POST or None)
+
+      if form.is_valid() and request.method == "POST":
+         form.save()
+         return redirect('main:show_main')
+
+         context = {'form': form}
+         return render(request, "create_product.html", context)
+   ```
+4. Mengubahlah fungsi `show_main` yang ada pada berkas `views.py`
+   ```
+   def show_main(request):
+      products = Product.objects.all()
+
+      context = {
+         'apps_name' : 'Zalohra',
+         'name': 'Rizqya Az Zahra Putri',
+         'class': 'PBP F',
+         'products': products
+      }
+      return render(request, "main.html", context
+   ```
+5. Meng-_import_ fungsi `create_product` pada berkas `urls.py` yang ada pada direktori `main` dan routing URL ke dalam variabel `urlpatterns` pada `urls.py` di `main`
+   ```
+   from main.views import show_main, create_product
+
+   ...
+   urlpatterns = [
+      ...
+      path('create-product', create_product, name='create_product'),
+   ]
+   ```
+6. Memuat berkas HTML baru dengan nama `create_product.html` pada direktori `main/templates` dan isi dengan
+   ```
+   {% extends 'base.html' %} 
+   {% block content %}
+   <h1>Add New Product</h1>
+   
+   <form method="POST">
+     {% csrf_token %}
+     <table>
+       {{ form.as_table }}
+       <tr>
+         <td></td>
+         <td>
+           <input type="submit" value="Add Product" />
+         </td>
+       </tr>
+     </table>
+   </form>
+   
+   {% endblock %}
+   ```
+7. Menambahkan folder `templates` di direktori utama dan membuat `base.html` sebagai basis dari laman-laman lain
+8. Menambahkan lokasi folder `templates` tersebut ke variabel `TEMPLATES` yang ada di berkas `settings.py` pada direktori proyek `Zalohra`
+   ```
+   ...
+   'DIRS': [BASE_DIR / 'templates'],
+   ...
+   ```
+9. Mengimplementasikan database ke dalam laman utama `main.html` dan juga menjadi perpanjangan dari `base.html` di direktori utama
+
+#### Menambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_
+#### Membuat routing URL untuk masing-masing `views` yang telah ditambahkan
 
 ### 💻 Hasil Akses URL pada Postman
