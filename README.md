@@ -231,7 +231,7 @@ Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menyedi
 9. Mengimplementasikan database ke dalam laman utama `main.html` dan juga menjadi perpanjangan dari `base.html` di direktori utama
 
 #### Menambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_
-1. Meng-_import HttpResponse dan Serializer pada berkas `views.py` di direktori `main`
+1. Meng-_import_ HttpResponse dan Serializer pada berkas `views.py` di direktori `main`
    ```
    from django.http import HttpResponse
    from django.core import serializers
