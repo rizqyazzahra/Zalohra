@@ -231,6 +231,58 @@ Model pada Django disebut sebagai ORM (Object-Relational Mapping) karena menyedi
 9. Mengimplementasikan database ke dalam laman utama `main.html` dan juga menjadi perpanjangan dari `base.html` di direktori utama
 
 #### Menambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_
+1. Meng-_import HttpResponse dan Serializer pada berkas `views.py` di direktori `main`
+   ```
+   from django.http import HttpResponse
+   from django.core import serializers
+   ```
+2. Menambahkan fungsi-fungsi yang diperlukan untuk menampilkan XML dan JSON
+   ```
+   def show_xml(request):
+      data = Product.objects.all()
+
+   def show_json(request):
+       data = Product.objects.all()
+   
+   def show_xml_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+   
+   def show_json_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+    ```
+3. Menambahkan _return function_ berupa `HttpResponse`
+   ```
+   def show_xml(request):
+      data = Product.objects.all()
+      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+   def show_json(request):
+       data = Product.objects.all()
+       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+   
+   def show_xml_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+   
+   def show_json_by_id(request, id):
+       data = Product.objects.filter(pk=id)
+       return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+   ```
+
 #### Membuat routing URL untuk masing-masing `views` yang telah ditambahkan
+Menambahkan URL routing di dalam `urls.py` yang ada di direktori `main`
+```
+from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
+...
+urlpatterns = [
+    path('', show_main, name='show_main'),
+    path('create-product', create_product, name='create_product'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+]
+```
+
 
 ### 💻 Hasil Akses URL pada Postman
