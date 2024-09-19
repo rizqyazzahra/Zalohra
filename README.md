@@ -307,3 +307,15 @@ urlpatterns = [
 
 #### JSON by ID
 ![Screenshot (1340)](https://github.com/user-attachments/assets/817bb3c5-8231-41de-a1ae-3b5fcf5a45fd)
+
+---
+## Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django
+### 1. Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`
+
+### 2. Jelaskan cara kerja penghubungan model `MoodEntry` dengan `User`!
+
+### 3. Apa perbedaan antara _authentication_ dan _authorization_, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+
+### 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari _cookies_ dan apakah semua _cookies_ aman digunakan?
+
+### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
