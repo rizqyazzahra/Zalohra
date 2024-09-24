@@ -4,6 +4,10 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 🔗 Tautan PWS _deployment_: [Zalohra](http://rizqya-az-zalohra.pbp.cs.ui.ac.id/)
 
+### Daftar Isi
+* [Tugas 2](#tugas-2)
+* Tugas 3
+* Tugas 4
 ---
 ## Tugas 2: Implementasi Model-View-Template (MVT) pada Django
 ### 1. Langkah Implementasi
