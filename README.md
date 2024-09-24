@@ -15,15 +15,15 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 #### Membuat sebuah proyek Django baru.
 1. Membuat direktori lokal bernama 'Zalohra' lalu masuk ke dalam direktori tersebut
 2. Membuka _command prompt_ dan membuat _virtual environment_ dengan menjalankan perintah:
-   ```
+   ```python
    py -m venv env
    ```
 3. Mengaktifkan _virtual environment_ menggunakan perintah:
-   ```
+   ```python
    env\Scripts\activate
    ```
 4. Masih di direktori lokal, membuat file `requirements.txt` yang berisi daftar _dependencies_ yang akan diperlukan.
-   ```
+   ```python
    django
    gunicorn
    whitenoise
@@ -32,25 +32,25 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    urllib3
    ```
 5. Melakukan instalasi terhadap _dependencies_ dengan perintah:
-   ```
+   ```python
    pip install -r requirements.txt
    ```
 6. Membuat proyek Django bernama 'Zalohra' dengan perintah:
-   ```
+   ```python
    django-admin startproject Zalohra .
    ```
 7. Menambahkan string pada ALLOWED_HOST di `settings.py` untuk keperluan _deployment_:
-   ```
+   ```python
    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
    ```
 8. Membuat repositori baru di GitHub dengan nama 'Zalohra'
 9. Menambahkan berkas `.gitignore`
 10. Membuat _branch_ utama baru dengan nama `main` menggunakan perintah:
-    ```
+    ```python
     git branch -M main
     ```
 11. Menghubungkan direktori lokal dengan repositori di GitHub menggunakan perintah:
-    ```
+    ```python
     git remote add origin https://github.com/rizqyazzahra/Zalohra.git
     ```
 12. Melakukan _add_, _commit_, dan _push_ dari direktori lokal ke repositori GitHub
@@ -58,7 +58,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 #### Membuat aplikasi dengan nama `main` pada proyek tersebut.
 1. Di direktori utama Zalora, membuat aplikasi baru bernama `main` menggunakan perintah:
-   ```
+   ```python
    python manage.py startapp main
    ```
 2. Mendaftarkan aplikasi `main` ke variabel INSTALLED_APPS yang ada di dalam berkas `settings.py`
@@ -66,7 +66,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 #### Membuat model pada aplikasi `main` dengan nama `Product` dan memiliki atribut wajib (name, price, description)
 1. Mengisi berkas `models.py` pada direktori aplikasi main dengan kode:
-   ```
+   ```python
    from django.db import models
 
    class Product(models.Model):
@@ -75,7 +75,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
       description = models.TextField()
    ```
 2. Membuat migrasi model dengan perintah berikut:
-   ```
+   ```python
    python manage.py makemigrations
    ```
 3. Melakukan migrasi ke dalam basis data lokal dengan perintah berikut:
@@ -92,7 +92,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 
 #### Membuat sebuah routing pada `urls.py` aplikasi `main` untuk memetakan fungsi yang telah dibuat pada `views.py`
 1. Membuat berkas `urls.py` di dalam direktori `main` dan mengisi dengan:
-   ```
+   ```python
    from django.urls import path
    from main.views import show_main
 
@@ -103,7 +103,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
    ]
    ```
 2. Membuka berkas `urls.py` di dalam direktori proyek `Zalohra` dan mengisi dengan:
-   ```
+   ```python
    from django.contrib import admin
    from django.urls import path, include
    
@@ -165,7 +165,7 @@ Penyerang memanfaatkan hal tersebut dengan:
 ### 5. Langkah Implementasi _Checklist_
 #### Membuat input `form`
 1. Membuat `forms.py` di direktori `main` dengan isi
-   ```
+   ```python
    from django.forms import ModelForm
    from main.models import Product
 
@@ -175,13 +175,13 @@ Penyerang memanfaatkan hal tersebut dengan:
            fields = ["name", "price", "description", "image"]
    ```
 2. Menambahkan beberapa _import_ pada berkas `views.py` di direktori `main`
-   ```
+   ```python
    from django.shortcuts import render, redirect   # Menambahkan import redirect
    from main.forms import ProductForm
    from main.models import Product
    ```
 3. Menambahkan method `create_product` untuk menambah entri database di file `views.py` di direktori `main`
-   ```
+   ```python
    def create_product(request):
       form = ProductForm(request.POST or None)
 
@@ -193,7 +193,7 @@ Penyerang memanfaatkan hal tersebut dengan:
          return render(request, "create_product.html", context)
    ```
 4. Mengubahlah fungsi `show_main` yang ada pada berkas `views.py`
-   ```
+   ```python
    def show_main(request):
       products = Product.objects.all()
 
@@ -206,7 +206,7 @@ Penyerang memanfaatkan hal tersebut dengan:
       return render(request, "main.html", context
    ```
 5. Meng-_import_ fungsi `create_product` pada berkas `urls.py` yang ada pada direktori `main` dan routing URL ke dalam variabel `urlpatterns` pada `urls.py` di `main`
-   ```
+   ```python
    from main.views import show_main, create_product
 
    ...
@@ -216,7 +216,7 @@ Penyerang memanfaatkan hal tersebut dengan:
    ]
    ```
 6. Memuat berkas HTML baru dengan nama `create_product.html` pada direktori `main/templates` dan isi dengan
-   ```
+   ```python
    {% extends 'base.html' %} 
    {% block content %}
    <h1>Add New Product</h1>
@@ -238,7 +238,7 @@ Penyerang memanfaatkan hal tersebut dengan:
    ```
 7. Menambahkan folder `templates` di direktori utama dan membuat `base.html` sebagai basis dari laman-laman lain
 8. Menambahkan lokasi folder `templates` tersebut ke variabel `TEMPLATES` yang ada di berkas `settings.py` pada direktori proyek `Zalohra`
-   ```
+   ```python
    ...
    'DIRS': [BASE_DIR / 'templates'],
    ...
@@ -247,12 +247,12 @@ Penyerang memanfaatkan hal tersebut dengan:
 
 #### Menambahkan 4 fungsi `views` baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML _by ID_, dan JSON _by ID_
 1. Meng-_import_ HttpResponse dan Serializer pada berkas `views.py` di direktori `main`
-   ```
+   ```python
    from django.http import HttpResponse
    from django.core import serializers
    ```
 2. Menambahkan fungsi-fungsi yang diperlukan untuk menampilkan XML dan JSON
-   ```
+   ```python
    def show_xml(request):
       data = Product.objects.all()
 
@@ -266,7 +266,7 @@ Penyerang memanfaatkan hal tersebut dengan:
        data = Product.objects.filter(pk=id)
     ```
 3. Menambahkan _return function_ berupa `HttpResponse`
-   ```
+   ```python
    def show_xml(request):
       data = Product.objects.all()
       return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
@@ -286,7 +286,7 @@ Penyerang memanfaatkan hal tersebut dengan:
 
 #### Membuat routing URL untuk masing-masing `views` yang telah ditambahkan
 Menambahkan URL routing di dalam `urls.py` yang ada di direktori `main`
-```
+```python
 from main.views import show_main, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
 ...
 urlpatterns = [
@@ -322,7 +322,7 @@ urlpatterns = [
 ### 2. Jelaskan cara kerja penghubungan model `Product` dengan `User`!
 Penghubungan model `Product` dengan `User` dilakukan dengan menggunakan `ForeignKey`. `ForeignKey` menghubungkan tiap objek `Product` dengan satu user melalui sebuah relasi, dimana sebuah _product_ pasti terasosiasikan dengan seorang user dan satu user dapat memiliki banyak _product_ (relasi _many-to-one_).
 Contoh:
-```
+```python
 from django.contrib.auth.models import User
 
 class Product(models.Model):
@@ -349,7 +349,7 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
 #### Mengimplementasikan fungsi registrasi, login, dan logout
 * Registrasi
   1. Membuat fungsi dan form registrasi dengan menambahkan _import_ `UserCreationForm` dan `messages` serta fungsi `register` pada `views.py` pada subdirektori `main`
-     ```
+     ```python
       from django.contrib.auth.forms import UserCreationForm
       from django.contrib import messages
       ...
@@ -369,7 +369,7 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
   2. Membuat berkas baru `register.html` pada direktori `main/templates` untuk menampilkan form registrasi.
 * Login
   1. Membuat fungsi `login_user` dan meng-_import_ `authenticate`, `login`, dan `AuthenticationForm` pada `views.py`
-     ```
+     ```python
      from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
      from django.contrib.auth import authenticate, login
      ...
@@ -390,7 +390,7 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
   2. Membuat berkas baru bernama `login.html` pada direktori `main/templates` untuk menampilkan form _login_.
 * Logout
   1. Menambahkan fungsi `logout_user` dan meng-_import_ `logout` pada `views.py` yang berisi
-     ```
+     ```python
      from django.contrib.auth import logout
      ...
      def logout_user(request):
@@ -400,7 +400,7 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
   3. Menambahkan _button_ untuk logout di berkas `main.html`
      
   Kemudian melakukan _routing_ dengan meng-import `register`, `login`, dan `logout` pada berkas `urls.py` di subdirektori `main`
-  ```
+  ```python
   from main.views import register, login_user, logout_user
   ...
   urlpatterns = [
@@ -412,12 +412,12 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
   ```
 
   Setelah halaman register, login, dan logout dapat diakses, menambahkan kode berikut pada berkas `views.py` untuk merestriksi akses user ke halaman utama.
-  ```
+  ```python
   from django.contrib.auth.decorators import login_required
      ...
   
-     @login_required(login_url='/login')
-     def show_main(request):
+      @login_required(login_url='/login')
+      def show_main(request):
         ...
   ```
 
@@ -432,7 +432,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
 
 ####  Menghubungkan model `Product` dengan `User`
 1. Menambahkan kode berikut pada berkas `models.py` di direktori `main`
-   ```
+   ```python
    from django.contrib.auth.models import User
    ...
 
@@ -441,7 +441,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
       ...
    ```
 2. Mengubah potongan kode pada fungsi `create_product` di `views.py`
-   ```
+   ```python
    def create_product(request):
       form = ProductForm(request.POST or None)
 
@@ -455,7 +455,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
       return render(request, "create_product.html", context)
    ```
 3. Mengubah value dari `products` dan `context` pada fungsi `show_main` menjadi
-   ```
+   ```python
    def show_main(request):
       products = Product.objects.filter(user=request.user)
 
@@ -467,7 +467,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
    ```
 4. Melakukan migrasi model
 5. Meng-_import_ `os` dan mengganti variabel DEBUG di berkas `settings.py` menjadi sebagai berikut
-   ```
+   ```python
    import os
    ...
    PRODUCTION = os.getenv("PRODUCTION", False)
@@ -477,7 +477,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
 
 ####  Menampilkan detail informasi pengguna yang sedang _logged in_ seperti _username_ dan menerapkan `cookies`
 1. Meng-_import_ beberapa modul dan memodifikasi fungsi `login_user` pada blok `if form.is_valid()` menjadi sebagai berikut
-   ```
+   ```python
    import datetime
    from django.http import HttpResponseRedirect
    from django.urls import reverse
@@ -493,14 +493,14 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
    ...
    ```
 2. Menambahkan potongan kode berikut ke dalam variabel `context`
-   ```
+   ```python
    context = {
       ...
       'last_login': request.COOKIES['last_login'],
    }
    ```
 3. Memodifikasi fungsi `logout_user` menjadi seperti ini
-   ```
+   ```python
    def logout_user(request):
       logout(request)
       response = HttpResponseRedirect(reverse('main:login'))
@@ -508,7 +508,7 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
       return response
    ```
 4. Menambahkan potongan kode berikut pada berkas `main.html`
-   ```
+   ```python
    ...
    <h5>Sesi terakhir login: {{ last_login }}</h5>
    ...
