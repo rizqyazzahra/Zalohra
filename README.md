@@ -343,7 +343,7 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
 #### Mengimplementasikan fungsi registrasi, login, dan logout
 * Registrasi
-  1. Membuat fungsi dan form registrasi dengan menambahkan import `UserCreationForm` dan `messages` serta fungsi `register` pada `views.py` pada subdirektori `main`
+  1. Membuat fungsi dan form registrasi dengan menambahkan _import_ `UserCreationForm` dan `messages` serta fungsi `register` pada `views.py` pada subdirektori `main`
      ```
       from django.contrib.auth.forms import UserCreationForm
       from django.contrib import messages
@@ -420,7 +420,10 @@ Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait de
 Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan akun yang berbeda. Saya membuat dua akun dengan username `RizqyaAzZahraPutri` dan `RizqyaAzZahra`, lalu menambahkan tiga data untuk setiap akunnya.
 * Bukti pembuatan akun dan _dummy data_
   ##### User 1 (RizqyaAzZahraPutri)
+  ![Screenshot 2024-09-24 200952](https://github.com/user-attachments/assets/8a1d3847-3333-412b-bf40-d90f90d24805)
+  
   ##### User 2 (RizqyaAzZahra)
+  ![Screenshot 2024-09-24 200221](https://github.com/user-attachments/assets/ab289dbb-7b5b-44f6-a79c-7b6a6687a37a)
 
 ####  Menghubungkan model `Product` dengan `User`
 1. Menambahkan kode berikut pada berkas `models.py` di direktori `main`
