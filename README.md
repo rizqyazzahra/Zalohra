@@ -310,12 +310,34 @@ urlpatterns = [
 
 ---
 ## Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django
-### 1. Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`
+### 1. Apa perbedaan antara `HttpResponseRedirect()` dan `redirect()`?
+* `HttpResponseRedirect()` merupakan kelas bawaan Django yang mengembalikan respons HTTP 302 untuk mengarahkan pengguna (_redirect_) ke URL tertentu. Untuk penggunaannya, biasanya perlu menyertakan URL secara eksplisit sebagai string dalam parameter.
+* `redirect()` merupakan _shortcut function_ dari Django yang digunakan untuk mengalihkan pengguna ke URL tertentu dan mengembalikan respons HTTP yang fungsinya sama seperti `HttpResponseRedirect()`. Namun, `redirect()` lebih fleksibel dan mudah digunakan karena dapat menerima berbagai tipe argumen seperti nama URL, nama view, atau objek model.
 
-### 2. Jelaskan cara kerja penghubungan model `MoodEntry` dengan `User`!
+### 2. Jelaskan cara kerja penghubungan model `Product` dengan `User`!
+Penghubungan model `Product` dengan `User` dilakukan dengan menggunakan `ForeignKey`. `ForeignKey` menghubungkan tiap objek `Product` dengan satu user melalui sebuah relasi, dimana sebuah _product_ pasti terasosiasikan dengan seorang user dan satu user dapat memiliki banyak _product_ (relasi _many-to-one_)
+Contoh:
+```
+from django.contrib.auth.models import User
 
-### 3. Apa perbedaan antara _authentication_ dan _authorization_, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+class Product(models.Model):
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
+   ...
+```
+`ForeignKey` menunjukkan bahwa setiap `Product` terkait dengan satu `User` yang membuat atau memiliki produk tersebut. `on_delete=models.CASCADE` memastikan bahwa jika pengguna user, maka semua produk yang terkait juga akan dihapus.
+
+### 3. Apa perbedaan antara _authentication_ dan _authorization_, apakah yang dilakukan saat pengguna _login_? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+_Authentication_ adalah proses memverifikasi identitas pengguna, biasanya dengan memeriksa kredensial seperti _username_ dan _password_. Sedangkan _authorization_ adalah proses untuk menentukan hak akses pengguna terhadap _resource_ setelah autentikasi. Biasanya melibatkan pengecekan apakah pengguna memiliki izin untuk melakukan tindakan tertentu seperti melihat halaman, mengedit data, atau mengakses fitur khusus.
+
+Saat pengguna _login_, _authentication_ dilakukan untuk memastikan bahwa identitas yang mereka masukkan sesuai dengan data di _database_. Setelah proses _authentication_ berhasil dalam kata lain pengguna berhasil _login_, Django melakukan _authorization_ dengan memeriksa izin pengguna setiap kali mereka mencoba mengakses halaman atau fitur yang membutuhkan otorisasi. Django akan melihat apakah mereka memiliki hak akses _resource_ tertentu.
+
+Django mengimplementasikan _authentication_ menggunakan sistem autentikasi bawaan yang menangani login dan logout pengguna, seperti `authenticate()` dan `login()`. Sementara untuk _Authorization_, Django memiliki sistem _permissions_ bawaan yang mengelola izin dan peran pengguna yang dapat diatur pada view atau model tertentu, menggunakan _decorator_ seperti `@login_required` dan `@permission_required`.
 
 ### 4. Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari _cookies_ dan apakah semua _cookies_ aman digunakan?
+Django mengingat pengguna yang telah _login_ menggunakan sesi yang disimpan dalam _cookies_. Ketika pengguna _login_, Django membuat _session_ untuk pengguna dan menyimpan _session_ ID di _cookies_ dalam browser pengguna. _Cookies_ ini yang memungkinkan Django untuk mengenali pengguna saat mereka kembali ke aplikasi. Saat pengguna mengunjungi halaman lain, _cookie_ dikirimkan ke server dan Django membaca _session_ ID dari cookie dan mengaitkan _session_ tersebut dengan pengguna yang telah _login_ atau diautentikasi.
+
+Kegunaan lain dari _cookies_, yaitu melacak aktivitas pengguna, mempersonalisasi konten pengguna, dan menyimpan pengaturan atau preferensi pengguna, seperti bahasa, mode gelap atau terang, atau preferensi tampilan lainnya.
+
+Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait dengan penggunaan _cookies_. _Third-party tracking cookies_ sering digunakan untuk melacak pengguna di berbagai situs tanpa sepengetahuan mereka, yang menimbulkan masalah privasi. Selain itu, _cookies_ yang tidak dilindungi dengan baik dapat rentan terhadap serangan _Cross-Site Scripting_ (XSS) dan _Cross-Site Request Forgery_ (CSRF). Maka dari itu, untuk memastikan _cookies_ lebih aman perlu memberi _cookies_ atribut `HTTPOnly` untuk mencegah akses _cookies_ melalui JavaScript dan juga atribut `Secure` untuk memastikan _cookie_ hanya dikirimkan melalui koneksi terenkripsi (HTTPS).
 
 ### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
