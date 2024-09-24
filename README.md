@@ -162,7 +162,7 @@ Penyerang memanfaatkan hal tersebut dengan:
 - Mengubah pengaturan akun pengguna tanpa sepengetahuan pengguna
 - Membuat sebuah form di situs berbahaya yang secara diam-diam mengirimkan permintaan ke aplikasi Django target, menggunakan kredensial pengguna yang sedang login, untuk melakukan tindakan seperti mengubah password, melakukan transaksi, atau menghapus data tanpa sepengetahuan pengguna
 
-### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+### 5. Langkah Implementasi _Checklist_
 #### Membuat input `form`
 1. Membuat `forms.py` di direktori `main` dengan isi
    ```
@@ -345,7 +345,7 @@ Kegunaan lain dari _cookies_, yaitu melacak aktivitas pengguna, mempersonalisasi
 
 Untuk aspek keamanan, tidak semua _cookies_ aman. Ada beberapa risiko terkait dengan penggunaan _cookies_. _Third-party tracking cookies_ sering digunakan untuk melacak pengguna di berbagai situs tanpa sepengetahuan mereka, yang menimbulkan masalah privasi. Selain itu, _cookies_ yang tidak dilindungi dengan baik dapat rentan terhadap serangan _Cross-Site Scripting_ (XSS) dan _Cross-Site Request Forgery_ (CSRF). Maka dari itu, untuk memastikan _cookies_ lebih aman perlu memberi _cookies_ atribut `HTTPOnly` untuk mencegah akses _cookies_ melalui JavaScript dan juga atribut `Secure` untuk memastikan _cookie_ hanya dikirimkan melalui koneksi terenkripsi (HTTPS).
 
-### 5. Jelaskan bagaimana cara kamu mengimplementasikan _checklist_ di atas secara _step-by-step_ (bukan hanya sekadar mengikuti tutorial).
+### 5. Langkah Implementasi _Checklist_
 #### Mengimplementasikan fungsi registrasi, login, dan logout
 * Registrasi
   1. Membuat fungsi dan form registrasi dengan menambahkan _import_ `UserCreationForm` dan `messages` serta fungsi `register` pada `views.py` pada subdirektori `main`
