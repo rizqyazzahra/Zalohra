@@ -1,32 +1,71 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block meta %}
 <title>Login</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="login">
-    <h1>Login</h1>
+<div class="min-h-screen flex items-center justify-center w-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-sm bg-white p-8 rounded-lg shadow-lg flex flex-col items-center space-y-8">
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login" /></td>
-            </tr>
-        </table>
+    <div class="w-16 h-16 bg-black text-white rounded-full flex items-center justify-center">
+      <img src="{% static 'images/icon.svg' %}" alt="Login Icon" class="w-11 h-11">
+    </div>
+
+    <h2 class="text-center text-[#393646] text-3xl font-extrabold">
+      Welcome to Zalohra
+    </h2>
+
+    <form class="w-full space-y-6" method="POST" action="">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="rounded-md shadow-sm space-y-4">
+        <div>
+          <label for="username" class="sr-only">Username</label>
+          <input id="username" name="username" type="text" required class="appearance-none rounded-md block w-full px-3 py-2 bg-[#E1E1E1] text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-[#393646] focus:border-[#393646] sm:text-sm" placeholder="Username">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" required class="appearance-none rounded-md block w-full px-3 py-2 bg-[#E1E1E1] text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-[#393646] focus:border-[#393646] sm:text-sm" placeholder="Password">
+        </div>
+      </div>
+
+      <div>
+        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#393646] hover:bg-[#2e2c3b] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#393646]">
+          Login
+        </button>
+      </div>
     </form>
 
     {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %} Don't have an account yet?
-    <a href="{% url 'main:register' %}">Register Now</a>
-</div>
+    <div class="w-full mt-4">
+      {% for message in messages %}
+      {% if message.tags == "success" %}
+            <div class="bg-green-50 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% elif message.tags == "error" %}
+            <div class="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% else %}
+            <div class="bg-blue-50 border border-blue-400 text-blue-700 px-4 py-3 rounded relative" role="alert">
+                <span class="block sm:inline">{{ message }}</span>
+            </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
 
+    <div class="text-center mt-4">
+      <p class="text-sm text-gray-500">
+        Don't have an account yet?
+        <a href="{% url 'main:register' %}" class="font-medium text-[#E73725] hover:text-[#2e2c3b]">
+          Register Now
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock content %}

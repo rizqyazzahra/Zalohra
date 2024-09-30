@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% include 'navbar.html' %}
 <h1>Zalohra</h1>
 
 <h5>Name:</h5>
@@ -27,6 +28,20 @@
     <td>{{product.price}}</td>
     <td>{{product.description}}</td>
     <td><img src="{{ product.image }}" alt="{{ product.name }}" style="width: 100px; height: 100px;"></td>
+    <td>
+      <a href="{% url 'main:edit_product' product.pk %}">
+        <button>
+          Edit
+        </button>
+      </a>
+    </td>
+    <td>
+      <a href="{% url 'main:delete_product' product.pk %}">
+        <button>
+          Delete
+        </button>
+      </a>
+    </td>
   </tr>
   {% endfor %}
 </table>
