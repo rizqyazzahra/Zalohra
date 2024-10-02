@@ -8,6 +8,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 * [Tugas 2: Implementasi Model-View-Template (MVT) pada Django](#tugas-2-implementasi-model-view-template-mvt-pada-django)
 * [Tugas 3: Implementasi Form dan Data Delivery pada Django](#tugas-3-implementasi-form-dan-data-delivery-pada-django)
 * [Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django](#tugas-4-implementasi-autentikasi-session-dan-cookies-pada-django)
+* [Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS](#tugas-5-desain-web-menggunakan-html-css-dan-framework-css)
   
 ---
 ## Tugas 2: Implementasi Model-View-Template (MVT) pada Django
@@ -694,19 +695,16 @@ Kegunaan _Grid Layout_:
    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
    ...
    ```
-#### Kustomisasi halaman _login_, _register_, dan tambah _product_.
-
-#### Kustomisasi halaman daftar _product_.
-
-#### Membuat dua buah _button_ untuk mengedit dan menghapus _product_ pada setiap _card product_
-
-#### Membuat _responsive navigation bar_
-1. Membuat berkas HTML baru dengan nama `navbar.html` pada folder `templates/` di root directory dan diisi dengan template yang diinginkan
-2. Menautkan `navbar` ke dalam `main.html`, `create_product.html`, dan `edit_product.html` yang berada di subdirektori `main/templates/`, seperti ini:
-   ```python
-   {% extends 'base.html' %}
-   {% block content %}
-   {% include 'navbar.html' %}
-   ...
-   {% endblock content%}
-   ```
+5. Styling halaman _login_, _register_.
+6. Styling halaman _home_ dengan membuat file `card_info.html` dan `card_product.html` di directory `main/templates`, kemudian ditambahkan ke template `main.html`
+7. Styling halaman tambah _product_, edit _product_
+8. Membuat _responsive navigation bar_
+   1. Membuat berkas HTML baru dengan nama `navbar.html` pada folder `templates/` di root directory dan diisi dengan template yang diinginkan
+   2. Menautkan `navbar` ke dalam `main.html`, `create_product.html`, dan `edit_product.html` yang berada di subdirektori `main/templates/`, seperti ini:
+     ```python
+     {% extends 'base.html' %}
+     {% block content %}
+     {% include 'navbar.html' %}
+     ...
+     {% endblock content%}
+     ```
