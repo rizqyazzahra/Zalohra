@@ -513,3 +513,18 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
    <h5>Sesi terakhir login: {{ last_login }}</h5>
    ...
    ```   
+
+## Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
+### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+1. Inline CSS, yang ditulis langsung pada elemen HTML menggunakan atribut style, memiliki prioritas tertinggi. Contoh: `<h1 style="color: blue;">Judul</h1>`
+2. ID selector, selector yang menggunakan ID elemen, misalnya `#header`. Hanya berlaku untuk elemen dengan ID tertentu. Contoh: `#header { color: white; }`
+3. 
+
+
+### 2. Mengapa _responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan _responsive design_!
+
+### 3. Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+### 4. Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!
+
+### 5. Langkah Implementasi _Checklist_
