@@ -545,7 +545,7 @@ Contoh aplikasi yang sudah menerapkan _responsive design_:
 * Instagram
 
 Contoh aplikasi yang belum menerapkan _responsive design_:
-* 
+* SIAKNG
 
 ### 3. Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
 * **Margin**, yaitu ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lain. Berfungsi untuk mengatur jarak antara elemen satu dengan yang lain.
@@ -701,10 +701,10 @@ Kegunaan _Grid Layout_:
 8. Membuat _responsive navigation bar_
    1. Membuat berkas HTML baru dengan nama `navbar.html` pada folder `templates/` di root directory dan diisi dengan template yang diinginkan
    2. Menautkan `navbar` ke dalam `main.html`, `create_product.html`, dan `edit_product.html` yang berada di subdirektori `main/templates/`, seperti ini:
-     ```python
-     {% extends 'base.html' %}
-     {% block content %}
-     {% include 'navbar.html' %}
-     ...
-     {% endblock content%}
-     ```
+       ```python
+       {% extends 'base.html' %}
+       {% block content %}
+       {% include 'navbar.html' %}
+       ...
+       {% endblock content%}
+       ```
