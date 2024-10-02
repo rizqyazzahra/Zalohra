@@ -516,15 +516,197 @@ Untuk membuat dua akun, cukup dengan melakukan dua kali registrasi user dengan a
 
 ## Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
 ### 1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
-1. Inline CSS, yang ditulis langsung pada elemen HTML menggunakan atribut style, memiliki prioritas tertinggi. Contoh: `<h1 style="color: blue;">Judul</h1>`
-2. ID selector, selector yang menggunakan ID elemen, misalnya `#header`. Hanya berlaku untuk elemen dengan ID tertentu. Contoh: `#header { color: white; }`
-3. 
+1. Inline CSS, yang ditulis langsung pada elemen HTML menggunakan atribut style, memiliki prioritas tertinggi. Contoh:
+   ```python
+   <h1 style="color: blue;">Judul</h1>
+   ```
+2. ID selectors: Selector yang menggunakan ID elemen (misalnya `#header`). Hanya berlaku untuk elemen dengan ID tertentu. Memiliki prioritas yang lebih tinggi daripada class dan element selector. Contoh:
+   ```python
+   #header { color: white; }
+   ```
+3. Class selectors, attribute selectors, dan pseudo-class selectors: Selector berbasis class (`.class`), attribute (`[type="text"]`), dan pseudo-class (`:hover`, `:focus`) memiliki prioritas yang lebih rendah daripada ID, tetapi lebih tinggi daripada tag/element selectors. Contoh:
+   ```python
+   .content { color: green; }
+   ```
+4. Element (type) selectors dan pseudo-elements: Selector berbasis elemen HTML (misalnya `div`, `p`, `h1`) serta pseudo-elements (`::before`, `::after`) memiliki prioritas rendah.
+   ```python
+   Contoh: p { color: green; }
+   ```
+5. Universal selectors (`*`) memiliki prioritas terendah.
 
 
 ### 2. Mengapa _responsive design_ menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan _responsive design_!
+_Responsive design_ menjadi konsep penting dalam pengembangan aplikasi web karena kebutuhan untuk membuat situs web atau aplikasi dapat diakses dengan optimal di berbagai perangkat dengan ukuran layar yang berbeda, seperti _desktop_, _smartphone_, dan tablet guna meningkatkan pengalaman pengguna di semua perangkat.
+
+Contoh aplikasi yang sudah menerapkan _responsive design_:
+* YouTube
+* Pinterest
+* Instagram
+
+Contoh aplikasi yang belum menerapkan _responsive design_:
+* 
 
 ### 3. Jelaskan perbedaan antara _margin_, _border_, dan _padding_, serta cara untuk mengimplementasikan ketiga hal tersebut!
+* **Margin**, yaitu ruang kosong di luar elemen, yang memisahkan elemen tersebut dari elemen lain. Berfungsi untuk mengatur jarak antara elemen satu dengan yang lain.
+* **Border**, yaitu garis yang mengelilingi elemen, berada di antara margin dan padding.
+Berfungsi untuk memberi bingkai atau batas visual pada elemen.
+* **Padding**, yaitu ruang di dalam elemen, antara konten elemen dan border. Padding juga dapat memiliki warna yang sama dengan _background_ elemen. Berfungi untuk memberi jarak antara konten elemen (seperti teks atau gambar) dengan border elemen.
+
+Cara implementasi:
+```python
+.element {
+    margin: 20px;
+    padding: 15px;
+    border: 2px solid black;
+}
+```
 
 ### 4. Jelaskan konsep _flex box_ dan _grid layout_ beserta kegunaannya!
+**_Flexbox_** adalah metode tata letak satu dimensi, yang berarti mengatur elemen secara linear, baik secara horizontal (baris) atau vertikal (kolom).
+Kegunaan _Flexbox_:
+* Mengatur item dalam satu baris atau kolom.
+* Mengatur tata letak yang fleksibel, seperti menu navigasi, galeri gambar, atau bagian konten yang disusun dalam satu dimensi (baris atau kolom).
+* Membuat tata letak yang responsif tanpa perlu menggunakan properti _float_ atau _positioning_.
+
+  **_Grid Layout_** adalah metode tata letak dua dimensi, yang memungkinkan untuk mengatur elemen dalam baris dan kolom. _Grid_ lebih kompleks dibandingkan _flexbox_ dan memberikan kontrol yang lebih mendetail dalam mengatur struktur elemen secara vertikal dan horizontal.
+Kegunaan _Grid Layout_:
+* Mengatur tata letak halaman web yang lebih kompleks di mana posisi elemen harus dikelola dalam dua dimensi (baris dan kolom).
 
 ### 5. Langkah Implementasi _Checklist_
+####  Implementasi fungsi untuk menghapus dan mengedit _product_.
+1. Membuat fungsi baru dengan nama `edit_product` dan `delete_product` pada `views.py` di folder `main`
+   ```pyhton
+   ...
+   def edit_product(request, id):
+     product = Product.objects.get(pk = id)
+     form = ProductForm(request.POST or None, instance=product)
+
+     if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+     context = {'form': form}
+     return render(request, "edit_product.html", context)
+
+   def delete_product(request, id):
+        product = Product.objects.get(pk = id)
+        product.delete()
+        return HttpResponseRedirect(reverse('main:show_main'))
+   ```
+2. Tambahkan _import_ pada file `views.py`
+   ```python
+   from django.shortcuts import .., reverse
+   from django.http import .., HttpResponseRedirect
+   ```
+3. Membuat berkas HTML baru dengan nama `edit_product.html` pada subdirektori `main/templates`
+   ```python
+   {% extends 'base.html' %}
+    {% load static %}    
+    {% block content %}    
+    <h1>Edit Product</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Edit Product"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    
+    {% endblock %}
+   ```
+4. Melakukan _routing_ dengan _import_ dan menambahkan _path url_.
+   ```python
+   from main.views import edit_product, delete_product
+   ...
+   urlpatterns = [
+     ...
+     path('edit-product/<uuid:id>', edit_product, name='edit_product'),
+     path('delete/<uuid:id>', delete_product, name='delete_product'),
+   ]
+   ```
+5. Menambahkan potongan code sebagai berikut agar tombol yang sudah dibuat muncul pada halaman web.
+   ```python
+   ...
+    <tr>
+        ...
+        <td>
+            <a href="{% url 'main:edit_product' product.pk %}">
+                <button>
+                    Edit
+                </button>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'main:delete_product' product.pk %}">
+                <button>
+                    Delete
+                </button>
+            </a>
+        </td>
+    </tr>
+    ...
+   ```
+
+
+#### Kustomisasi desain pada template HTML
+1. Karena saya menggunakan Tailwind untuk _styling_ aplikasi Zalohra, saya pertama menyambungkan template django dengan taiwind dengan menambahkan script CDN tailwind di file `base.html`
+```python
+<head>
+{% block meta %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% endblock meta %}
+<script src="https://cdn.tailwindcss.com">
+</script>
+</head>
+```
+2. Konfigurasi static files, pada `settings.py` menambahkan _middleware_ WhiteNoise.
+   ```python
+   ...
+    MIDDLEWARE = [
+        'django.middleware.security.SecurityMiddleware',
+        'whitenoise.middleware.WhiteNoiseMiddleware', #Tambahkan tepat di bawah SecurityMiddleware
+        ...
+    ]
+    ...
+   ```
+3. Memastikan variabel `STATIC_ROOT`, `STATICFILES_DIRS`, dan `STATIC_URL` sudah dikonfigurasikan
+   ```python
+   ...
+    STATIC_URL = '/static/'
+    if DEBUG:
+        STATICFILES_DIRS = [
+            BASE_DIR / 'static'
+        ]
+    else:
+        STATIC_ROOT = BASE_DIR / 'static' 
+    ...
+   ```
+4. Membuat file 'global.css' di `/static/css` pada root directory dan dihubungkan dengan script Tailwind di `base.html`
+   ```python
+   ...
+   <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+   ...
+   ```
+#### Kustomisasi halaman _login_, _register_, dan tambah _product_.
+
+#### Kustomisasi halaman daftar _product_.
+
+#### Membuat dua buah _button_ untuk mengedit dan menghapus _product_ pada setiap _card product_
+
+#### Membuat _responsive navigation bar_
+1. Membuat berkas HTML baru dengan nama `navbar.html` pada folder `templates/` di root directory dan diisi dengan template yang diinginkan
+2. Menautkan `navbar` ke dalam `main.html`, `create_product.html`, dan `edit_product.html` yang berada di subdirektori `main/templates/`, seperti ini:
+   ```python
+   {% extends 'base.html' %}
+   {% block content %}
+   {% include 'navbar.html' %}
+   ...
+   {% endblock content%}
+   ```
