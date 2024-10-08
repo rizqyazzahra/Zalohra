@@ -9,6 +9,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 * [Tugas 3: Implementasi Form dan Data Delivery pada Django](#tugas-3-implementasi-form-dan-data-delivery-pada-django)
 * [Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django](#tugas-4-implementasi-autentikasi-session-dan-cookies-pada-django)
 * [Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS](#tugas-5-desain-web-menggunakan-html-css-dan-framework-css)
+* [Tugas 6: JavaScript dan AJAX](#tugas-6-javascript-dan-ajax)
   
 ---
 ## Tugas 2: Implementasi Model-View-Template (MVT) pada Django
@@ -708,3 +709,24 @@ Kegunaan _Grid Layout_:
        ...
        {% endblock content%}
        ```
+
+
+## Tugas 6: JavaScript dan AJAX
+### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+* Interaktivitas: JavaScript memungkinkan pembuatan halaman web menjadi lebih interaktif, seperti tombol, formulir, dan menu yang dapat merespons aksi pengguna tanpa perlu memuat ulang seluruh halaman.
+* Responsif dan Dinamis: JavaScript dapat memperbarui konten halaman web secara dinamis tanpa memuat ulang halaman (menggunakan `AJAX`), sehingga _experience_ pengguna lebih lancar dan responsif.
+* Validasi Formulir di Sisi Klien: JavaScript dapat digunakan untuk memvalidasi data di sisi klien sebelum data dikirim ke server. Hal ini dapat mengurangi beban server dan meningkatkan kecepatan respons aplikasi.
+* Kompatibilitas Lintas Platform: JavaScript berjalan di browser, yang berarti hampir semua perangkat dengan browser dapat menjalankan aplikasi yang menggunakan JavaScript, terlepas dari sistem operasi atau platform yang digunakan.
+
+### 2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+Saat digunakan dengan `fetch()`, fungsi `await` berperan menunggu (secara asinkron) hingga `fetch()` menyelesaikan permintaan HTTP dan mengembalikan respons. Dengan menggunakan `await`, kita dapat menunggu `promise` selesai dan mendapatkan hasilnya secara langsung, tanpa harus menggunakan `then()` atau `callback`.
+
+Jika kita tidak menggunakan `await`, maka fungsi `fetch()` akan segera mengembalikan `promise` sebelum respons selesai diterima. Hal ini berarti kita tidak dapat langsung mengakses data hasil respons. Jika perintah-perintah selanjutnya menggunakan data yang berasal dari `fetch`, dapat terjadi error.
+
+### 3. Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
+Dekorator `csrf_exempt` digunakan agar _request_ tersebut tidak divalidasi oleh mekanisme CSRF (_Cross-Site Request Forgery_) Django, yang dapat memblokir _request_ jika tidak menyertakan token CSRF yang valid. Hal ini berguna ketika kita yakin bahwa request berasal dari sumber yang terpercaya atau ketika _endpoint_ tersebut digunakan sebagai API publik yang tidak memerlukan proteksi CSRF. 
+
+### 4. Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+Pembersihan data input pengguna dilakukan di _backend_ karena validasi di _frontend_ saja tidak cukup untuk menjamin keamanan dan integritas data. Validasi _frontend_ bisa dengan mudah dihindari atau dimodifikasi oleh pengguna melalui d_eveloper tools_ atau dengan mengirimkan _request_ langsung ke server. Dengan melakukan pembersihan di _backend_, kita memastikan bahwa semua data yang masuk ke sistem benar-benar aman dan sesuai format, sehingga mencegah potensi serangan seperti injeksi SQL, XSS (Cross-Site Scripting), dan eksploitasi lainnya.
+
+### 5. Langkah Implementasi _Checklist_
