@@ -9,6 +9,7 @@ Proyek Django sebagai tugas mata kuliah Pemrograman Berbasis Platform (PBP) Ganj
 * [Tugas 3: Implementasi Form dan Data Delivery pada Django](#tugas-3-implementasi-form-dan-data-delivery-pada-django)
 * [Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django](#tugas-4-implementasi-autentikasi-session-dan-cookies-pada-django)
 * [Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS](#tugas-5-desain-web-menggunakan-html-css-dan-framework-css)
+* [Tugas 6: JavaScript dan AJAX](#tugas-6-javascript-dan-ajax)
   
 ---
 ## Tugas 2: Implementasi Model-View-Template (MVT) pada Django
@@ -708,3 +709,125 @@ Kegunaan _Grid Layout_:
        ...
        {% endblock content%}
        ```
+
+
+## Tugas 6: JavaScript dan AJAX
+### 1. Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+* Interaktivitas: JavaScript memungkinkan pembuatan halaman web menjadi lebih interaktif, seperti tombol, formulir, dan menu yang dapat merespons aksi pengguna tanpa perlu memuat ulang seluruh halaman.
+* Responsif dan Dinamis: JavaScript dapat memperbarui konten halaman web secara dinamis tanpa memuat ulang halaman (menggunakan `AJAX`), sehingga _experience_ pengguna lebih lancar dan responsif.
+* Validasi Formulir di Sisi Klien: JavaScript dapat digunakan untuk memvalidasi data di sisi klien sebelum data dikirim ke server. Hal ini dapat mengurangi beban server dan meningkatkan kecepatan respons aplikasi.
+* Kompatibilitas Lintas Platform: JavaScript berjalan di browser, yang berarti hampir semua perangkat dengan browser dapat menjalankan aplikasi yang menggunakan JavaScript, terlepas dari sistem operasi atau platform yang digunakan.
+
+### 2. Jelaskan fungsi dari penggunaan `await` ketika kita menggunakan `fetch()`! Apa yang akan terjadi jika kita tidak menggunakan `await`?
+Saat digunakan dengan `fetch()`, fungsi `await` berperan menunggu (secara asinkron) hingga `fetch()` menyelesaikan permintaan HTTP dan mengembalikan respons. Dengan menggunakan `await`, kita dapat menunggu `promise` selesai dan mendapatkan hasilnya secara langsung, tanpa harus menggunakan `then()` atau `callback`.
+
+Jika kita tidak menggunakan `await`, maka fungsi `fetch()` akan segera mengembalikan `promise` sebelum respons selesai diterima. Hal ini berarti kita tidak dapat langsung mengakses data hasil respons. Jika perintah-perintah selanjutnya menggunakan data yang berasal dari `fetch`, dapat terjadi error.
+
+### 3. Mengapa kita perlu menggunakan _decorator_ `csrf_exempt` pada _view_ yang akan digunakan untuk AJAX `POST`?
+Dekorator `csrf_exempt` digunakan agar _request_ tersebut tidak divalidasi oleh mekanisme CSRF (_Cross-Site Request Forgery_) Django, yang dapat memblokir _request_ jika tidak menyertakan token CSRF yang valid. Hal ini berguna ketika kita yakin bahwa request berasal dari sumber yang terpercaya atau ketika _endpoint_ tersebut digunakan sebagai API publik yang tidak memerlukan proteksi CSRF. 
+
+### 4. Pada tutorial PBP minggu ini, pembersihan data _input_ pengguna dilakukan di belakang (_backend_) juga. Mengapa hal tersebut tidak dilakukan di _frontend_ saja?
+Pembersihan data input pengguna dilakukan di _backend_ karena validasi di _frontend_ saja tidak cukup untuk menjamin keamanan dan integritas data. Validasi _frontend_ bisa dengan mudah dihindari atau dimodifikasi oleh pengguna melalui _developer tools_ atau dengan mengirimkan _request_ langsung ke server. Dengan melakukan pembersihan di _backend_, kita memastikan bahwa semua data yang masuk ke sistem benar-benar aman dan sesuai format, sehingga mencegah potensi serangan seperti injeksi SQL, XSS (Cross-Site Scripting), dan eksploitasi lainnya.
+
+### 5. Langkah Implementasi _Checklist_
+#### AJAX `GET`
+##### Mengubah kode cards data _product_ agar dapat mendukung AJAX `GET`
+1. Mengimpor dua decorator berikut  di berkas `views.py`
+   ```python
+   from django.views.decorators.csrf import csrf_exempt
+   from django.views.decorators.http import require_POST
+   ```
+2. DI berkas yang sama, menambahkan fungsi baru yaitu `add_product_ajax`
+   ```python
+   @csrf_exempt
+   @require_POST
+   def add_product_ajax(request):
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        image = request.POST.get("image")
+        user = request.user
+    
+        new_product = Product(
+            name=name,
+            price=price,
+            description=description,
+            image=image,
+            user=user
+        )
+        new_product.save()
+    
+        return HttpResponse(b"CREATED", status=201)
+   ```
+3. Menambahkan _routing_ untuk fungsi `add_product_ajax` dengan melakukan modifikasi di `urls.py`
+   ```python
+   from main.views import ..., add_product_ajax
+   
+   urlpatterns = [
+        ...
+        path('create-product-ajax', add_product_ajax, name='add_product_ajax'),
+    ]
+   ```
+4. Di berkas `views.py` bagian `show_main`, saya menghapus bagian berikut
+   ```python
+   product_entries = Product.objects.filter(user=request.user)
+   
+   'product_entries': product_entries,
+   ```
+5. Menngubah baris pertama fungsi `show_json` dan `show_xml` menjadi sebagai berikut
+   ```python
+   data = Product.objects.filter(user=request.user)
+   ```
+6. Di berkas `main.html`, saya menghapus _block conditional_ `product_entries` dan mengubahnya dengan kode ini
+   ```python
+   <div id="product_entry_cards"></div>
+   ```
+7. Lalu di bagian akhir berkas yang saman, saya menambahkan blok `<script>` dengan isi fungsi berikut
+   ```python
+   async function getProductEntries() {
+       return fetch("{% url 'main:show_json' %}").then((res) => res.json());
+       }
+   ```
+8. Masih di blok `<script>`, menambahkan fungsi `refreshProductEntries` yang berisi kode
+
+##### Melakukan pengambilan data _product_ menggunakan AJAX `GET`. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang _logged-in_
+1. Pada berkas `views.html`, saya menambahkan argumen `user=user` pada view `create_product_ajax`
+   ```python
+   new_product = Product(
+        name=name,
+        price=price,
+        description=description,
+        image=image,
+        user=user
+    )
+   ```
+
+#### AJAX `POST`
+##### Membuat sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan _product_
+1. Di berkas `main.html`, saya menambahkan kode berikut untuk membuat sebuah button
+   ```python
+   <button data-modal-target="crudModal" data-modal-toggle="crudModal" class="btn bg-[#E73725] hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105" onclick="showModal();">
+        Add New Product by AJAX
+      </button>
+   ```
+##### Membuat fungsi _view_ baru untuk menambahkan _product_ baru ke dalam basis data
+Saya mengimplementasikan _checklist_ ini dengan menambahkan view `create_product_ajax`, rincian kodenya sudah disampaikan di _checklist_ sebelumnya.
+
+##### Membuat path `/create-ajax/` yang mengarah ke fungsi _view_ yang baru dibuat
+Pengimplementasian sudah dijelaskan di bagian _routing_ dengan menambahkan path di berkas `urls.py`.
+
+##### Menghubungkan form yang telah dibuat di dalam modal ke path `/create-ajax/`
+Form dalam modal akan dihubungkan ke path `/create-ajax/` melalui `fetch()` yang ada dalam fungsi `addProduct()`. Kodenya sebagai berikut
+```python
+function addProduct() {
+    fetch("{% url 'main:add_product_ajax' %}", {
+      method: "POST",
+      body: new FormData(document.querySelector("#productForm")),
+    }).then((response) => refreshProducts());
+
+    document.getElementById("productForm").reset();
+    document.querySelector("[data-modal-toggle='crudModal']").click();
+
+    return false;
+  }
+```
